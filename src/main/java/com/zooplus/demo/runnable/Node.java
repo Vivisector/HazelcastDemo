@@ -1,5 +1,7 @@
 package com.zooplus.demo.runnable;
 
+import com.hazelcast.config.ClasspathXmlConfig;
+import com.hazelcast.config.Config;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 
@@ -9,7 +11,8 @@ import com.hazelcast.core.HazelcastInstance;
 public class Node {
 
     public static void main(String[] args) throws InterruptedException {
-        HazelcastInstance hz = Hazelcast.newHazelcastInstance();
+        Config cfg = new ClasspathXmlConfig("hazelcast.xml");
+        HazelcastInstance hz = Hazelcast.newHazelcastInstance(cfg);
         System.out.println("*** Node started");
         Thread.sleep(600000L);
         Hazelcast.shutdownAll();

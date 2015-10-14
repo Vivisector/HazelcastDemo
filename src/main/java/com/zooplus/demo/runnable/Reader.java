@@ -2,9 +2,12 @@ package com.zooplus.demo.runnable;
 
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
+import com.hazelcast.client.config.XmlClientConfigBuilder;
+import com.hazelcast.config.ClasspathXmlConfig;
 import com.hazelcast.core.HazelcastInstance;
 import com.zooplus.demo.common.Util;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -12,9 +15,9 @@ import java.util.Map;
  */
 public class Reader {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        ClientConfig clientConfig = new ClientConfig();
+        ClientConfig clientConfig = new XmlClientConfigBuilder("hazelcast-client.xml").build();
         HazelcastInstance hazelcastClient = HazelcastClient.newHazelcastClient(clientConfig);
         Map<Integer, String> bigMap = hazelcastClient.getMap("big");
 

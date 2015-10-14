@@ -2,16 +2,18 @@ package com.zooplus.demo.runnable;
 
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
+import com.hazelcast.client.config.XmlClientConfigBuilder;
 import com.hazelcast.core.HazelcastInstance;
 import com.zooplus.demo.common.Util;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
  * Created by @author Igor Ivaniuk on 12.10.2015.
  */
 public class Writer {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
         Integer packetSize = null;
         if (args.length > 0) {
             try {
@@ -26,7 +28,7 @@ public class Writer {
         }
         System.out.println("Packet size: " + packetSize + " MB");
 
-        ClientConfig clientConfig = new ClientConfig();
+        ClientConfig clientConfig = new XmlClientConfigBuilder("hazelcast-client.xml").build();
         HazelcastInstance hazelcastClient = HazelcastClient.newHazelcastClient(clientConfig);
         Map<Integer, String> bigMap = hazelcastClient.getMap("big");
 
