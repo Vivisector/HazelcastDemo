@@ -3,7 +3,6 @@ package com.zooplus.demo.runnable;
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.client.config.XmlClientConfigBuilder;
-import com.hazelcast.config.ClasspathXmlConfig;
 import com.hazelcast.core.HazelcastInstance;
 import com.zooplus.demo.common.Util;
 
@@ -17,9 +16,23 @@ public class Reader {
 
     public static void main(String[] args) throws IOException {
 
+        Boolean useReplicatedMap = false;
+        if (args.length > 0) {
+            if ("R".equals(args[0]) || "r".equals(args[0])) {
+                useReplicatedMap = true;
+                System.out.println("Using Replicated Map");
+            }
+        }
+
         ClientConfig clientConfig = new XmlClientConfigBuilder("hazelcast-client.xml").build();
         HazelcastInstance hazelcastClient = HazelcastClient.newHazelcastClient(clientConfig);
-        Map<Integer, String> bigMap = hazelcastClient.getMap("big");
+        Map<Integer, String> bigMap = null;
+        if (useReplicatedMap) {
+            bigMap = hazelcastClient.getReplicatedMap("bigReplicated");
+        } else {
+            bigMap = hazelcastClient.getMap("big");
+        }
+
 
         for (int i = 1; i <= 10; i++) {
             System.out.println(Util.getTimestamp() + " | Retrieving " + i + " : Started");
@@ -27,7 +40,7 @@ public class Reader {
             while (bigString == null) {
                 bigString = bigMap.get(i);
             }
-            System.out.println(Util.getTimestamp() + " | Retrieving " + i + " : Retrieved. Length: " + bigString.length() / 1024 * 2 + " KB");
+            System.out.println(Util.getTimestamp() + " | Retrieving map" + i + " : Retrieved. Length: " + bigString.length() / 1024 * 2 + " KB");
         }
 
         hazelcastClient.shutdown();
