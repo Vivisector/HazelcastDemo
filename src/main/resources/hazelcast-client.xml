@@ -4,8 +4,7 @@
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <network>
         <cluster-members>
-            <address>192.168.1.50</address>
-            <address>192.168.1.6</address>
+            <address>192.168.22.83</address>
         </cluster-members>
         <smart-routing>true</smart-routing>
         <redo-operation>true</redo-operation>

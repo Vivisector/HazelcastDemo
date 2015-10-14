@@ -7,13 +7,11 @@
         <join>
             <multicast enabled="false"></multicast>
             <tcp-ip enabled="true">
-                <member>192.168.1.50</member>
-                <member>192.168.1.6</member>
+                <member>192.168.22.83</member>
             </tcp-ip>
         </join>
         <interfaces enabled="true">
-            <interface>192.168.1.6</interface>
-            <interface>192.168.1.50</interface>
+            <interface>192.168.22.83</interface>
         </interfaces>
     </network>
 </hazelcast>
