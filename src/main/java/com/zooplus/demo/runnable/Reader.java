@@ -46,7 +46,7 @@ public class Reader {
             while (bigString == null) {
                 bigString = bigMap.get(Integer.toString(i));
             }
-            System.out.println(Util.getTimestamp() + " | Retrieving map" + i + " : Retrieved. Length: " + bigString.length() / 1024 * 2 + " KB");
+            System.out.println(Util.getTimestamp() + " | Retrieving " + i + " : Retrieved. Length: " + bigString.length() / 1024 * 2 + " KB");
         }
         Long endTime = Calendar.getInstance().getTimeInMillis();
         System.out.println("Took " + ((endTime - startTime) / 1000) + " seconds");
